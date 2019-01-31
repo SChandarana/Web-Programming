@@ -546,9 +546,10 @@
 				$("#comment-fail").html("Please fill in all the boxes");
 			}else{
 				$("#comment-fail").html("");
+				$("#add-comment").modal("hide");
 				showComments();
 				showEvents();
-				$("#add-comment").modal("hide");
+				
 			}
 		});
 		return false;
