@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Cuths Running Club</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="mustache.js"></script>   
+	<style>
+	body{
+		height: 100%;
+		display: grid;
+		grid-template-rows: 60px calc(100vh - 60px);
+	}
+	.bg-picture {
+		background: url("img/runningHighRes.jpg") no-repeat center center;
+		background-size: cover;
+		width: 100%;
+		height: 100%;
+		
+		align-items: center; 
+	}
+	.jumbotron {
+		background: rgba(255,255,255,0.5);
+
+	}
+	
+
+</style>
+</head>
+<body>
+	<!-- NavBar-->
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+		<a class="navbar-brand" href="javascript:void(0);" onclick="showSection('#front')">
+			<img src="img/cuthslogo.jpg" alt="icon" style="width:40px;">
+			Cuths Running Club
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id = "collapsibleNavbar">
+			<ul class="navbar-nav mr-auto">
+				
+				<li class="nav-item">
+					<a id="nav-about" class="nav-link" href="javascript:void(0);" onclick="showSection('#about')">About</a>
+				</li>
+				<li class="nav-item">
+					<a id="nav-events" class="nav-link" href="javascript:void(0);" onclick="showSection('#events');showComments();showEvents();">Events</a>
+				</li>
+				<li class="nav-item">
+					<a id="nav-times" class="nav-link" href="javascript:void(0);"onclick="showSection('#times');showTimes();">Race Times</a>
+				</li>
+			</ul>
+
+			<button id="btn-login" class="btn btn-success mr-sm-2" data-toggle="modal" data-target="#login">Login</button>
+			<button id="btn-register" class="btn btn-success mr-sm-2" data-toggle="modal" data-target="#register">Register</button>
+			<button id="btn-logout" class="btn btn-danger mr-sm-2" >Logout</button>
+
+
+
+
+
+		</div>
+	</nav>
+	
+
+	<!-- Modal for Login Form-->
+	<div class="modal fade" id="login">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">Login</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					<form id="loginform" action="http://127.0.0.1:8090">
+						<div class="form-group">
+							<label for="username">Username:</label>
+							<input type="text" class="form-control" id="loginusername">
+						</div>
+						<div class="form-group">
+							<label for="pwd">Password:</label>
+							<input type="password" class="form-control" id="loginpwd">
+							
+						</div>
+						<div id="loginfailed" style="color: red"></div>
+						<button type="submit" class="btn btn-success">Log in</button>
+					</form>
+				</div>
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-basic" disabled>Not got an account yet?</button>
+					<button type ="button" class="btn btn-link" data-dismiss="modal" data-toggle="modal" data-target="#register">Click here to make one</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal for Register Form-->
+	<div class="modal fade" id="register">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">Register</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					<form id="registerform" action="http://127.0.0.1:8090">
+						<div id="registerblank" style="color: red"></div>
+						<div class="form-group">
+							<label for="username">Username:</label>
+							<input type="text" class="form-control" id="registerusername">
+						</div>
+						<div class="form-group">
+							<label for="registerfirst">Forename:</label>
+							<input type="text" class="form-control" id="registerfirst">
+							
+						</div>
+						<div class="form-group">
+							<label for="registerlast">Surname:</label>
+							<input type="text" class="form-control" id="registerlast">
+							
+						</div>
+						<div class="form-group">
+							<label for="registerpwd">Password:</label>
+							<input type="password" class="form-control" id="registerpwd">
+							
+						</div>
+						<div class="form-group">
+							<label for="registerpwd">Retype</label>
+							<input type="password" class="form-control" id="register-retype">
+							
+						</div>
+						
+						<button type="submit" class="btn btn-success">Register</button>
+						
+					</form>
+				</div>
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class = "btn btn-basic" disabled>Already have an account?</button>
+					<button class="btn btn-link" data-dismiss="modal" data-toggle="modal" data-target="#login">Click here to Login</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<section id="main">
+		<section id="front" class="content bg-picture">
+			<div class="jumbotron" style="text-align: center;" >
+				<h1>Welcome to Cuths Running Club(CRC)</h1> 
+				<h4>The home of all your running needs.</h4> 
+			</div>
+			
+			
+		</section>
+		<section id="about" class="content bg-picture">
+			<div class="jumbotron">
+				<h1>about</h1> 
+				<p>Bootstrap is the most popular HTML, CSS...</p> 
+			</div>
+		</section>
+
+		<section id="events" class="content">
+			
+			<div id="eventlist" class="col-sm-6 float-left">
+				<div class="event">
+
+				</div>
+			</div>
+			<div class="col-sm-5 float-right">
+				<div id="commentlist">
+				</div>
+				<div class="extra">
+					<form action="http://127.0.0.1:8090">
+						<div class="form-group">
+							<label for="event-select">Select list (select one):</label>
+							<select class="form-control" id="event-select">
+
+							</select>
+							<label for="comment">Comment:</label>
+							<textarea class="form-control" rows="5" id="comment"></textarea>
+							<button type="submit" class="btn btn-success">Add Comment</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			
+		</section>
+
+		<section id="times" class="content">
+			<div class="jumbotron">
+				<h1>times</h1> 
+				<p>Bootstrap is the most popular HTML, CSS...</p> 
+			</div>
+		</section>
+
+
+	</section>
+
+
+
+
+	<script>
+
+
+		$("document").ready( function(){
+			showSection(false);
+			$(".content").hide();
+			$("#front").show();
+			$(".extra").hide();
+			
+
+
+		});
+
+
+
+
+		
+		function showSection(tag){
+			if(tag !== false){
+				$(".content").hide();
+				$(tag).show();
+			}	
+			
+
+			$.get("/logged",
+
+				function(data){
+					
+					if(data){
+						$("#btn-register").hide();
+						$("#btn-login").hide();
+						$("#btn-logout").show();
+						$(".extra").show();
+					}else{
+						$("#btn-register").show();
+						$("#btn-login").show();
+						$("#btn-logout").hide();
+						$(".extra").hide();
+
+					};
+
+
+				});
+			return false;
+
+			
+		};
+
+		$("#btn-logout").on("click",logout);
+
+		function logout(){
+			$.get("/logout",
+
+
+				function (data){
+
+					showSection(false);
+				});
+
+
+			return false;
+		};
+
+		function loginhandler (){
+
+
+
+			$.post("/login",
+			{
+				username:$("#loginusername").val(),
+				password:$("#loginpwd").val(),
+				access_token:"concertina"
+			},	
+
+
+			function (data){
+				if(!data){
+					$('#loginfailed').html("Invalid username/password");
+					$('#loginform').each(function(){
+						this.reset();
+					});
+				}else{
+					showSection(false);
+					$('#failed').html("");
+					$("#btn-register").hide();
+					$("#btn-login").hide();
+					$("#btn-logout").show();
+					$('#login').modal("hide");
+					$('#loginform').each(function(){
+						this.reset();
+					});
+
+				}
+
+
+			});
+			return false;
+
+
+		};
+
+		$('#loginform').on('submit', loginhandler);
+
+		function registerhandler (){
+
+			$.post("/people",
+			{
+				forename:$("#registerfirst").val(),
+				surname:$("#registerlast").val(),
+				username:$("#registerusername").val(),
+				password:$("#registerpwd").val(),
+				access_token:"concertina"	
+			},
+
+			function(data){
+
+				$("#register").modal("hide");
+				$('#registerform').each(function(){
+					this.reset();
+				});
+
+
+
+			});
+			return false;
+		};
+
+		$('#registerform').on('submit',registerhandler);
+
+
+
+
+		function showComments(){
+			
+			$.get("/comments",
+
+				function(data){
+
+					var template = '{{#comments}}<div class="media border p-3 comment align-self-end"> <img src="img/cuthslogo.jpg" alt="Cuths" class="mr-3 mt-3 rounded-circle" style="width:60px;"> <div class="media-body"> <h4> {{username}} <small><i>is commenting about {{event}}</i></small></h4> <p>{{comment}}</p> </div> </div>{{/comments}}';
+					var html = Mustache.to_html(template,data);
+					$("#commentlist").html(html);
+					showSection("#comments");
+
+
+				});
+			return false;
+		};
+
+		function showEvents(){
+
+			$.get("/events",
+
+				function(data){
+					var template = '{{#events}}<option>{{name}}</option>{{/events}}';
+					var html = Mustache.to_html(template,data);
+					$("#event-select").html(html);
+					template = '{{#events}}<div class="media border p-3 comment align-self-end"> <img src="{{image}}" alt="Cuths" class="mr-3 mt-3 rounded-circle" style="width:60px;"> <div class="media-body"> <h4> {{name}} <small><i> {{date}}</i></small></h4> <p>{{tagline}}</p> </div> </div>{{/events}}';
+					html = Mustache.to_html(template,data);
+					$("#eventlist").html(html);
+					showSection("#events")
+				});
+			return false;
+		};
+
+
+	</script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+</body>
+</html>
