@@ -10,18 +10,21 @@ app.use(session({secret:"concertina"}));
 app.use(express.static('public'));
 
 
-var users = [{"username":"doctorwhocomposer", "forename":"Delia", "surname":"Derbyshire"}];
+var steven = [{"username":"doctorwhocomposer", "forename":"Delia", "surname":"Derbyshire"}];
+var users = [{"username":"doctorwhocomposer", "forename":"Delia", "surname":"Derbyshire","adminStatus":true,"image":"img/cuthslogo.jpg"}];
 var passwords = ["password"];
 var comments = {
 	"comments": [{
 		"username":"doctorwhocomposer",
 		"event": "Park Run",
-		"comment":"Wowie I just can't wait for this park run!!"
+		"comment":"Wowie I just can't wait for this park run!!",
+		"image":"img/cuthslogo.jpg"
 	},
 	{
 		"username":"Shivam",
 		"event": "Another event",
-		"comment":"This event looks amazing"
+		"comment":"This event looks amazing",
+		"image":"https://vignette.wikia.nocookie.net/nightmarefactory/images/4/4a/Anonymous_User.png/revision/latest?cb=20180303193206"
 	}]
 };
 var times = {};
@@ -49,30 +52,37 @@ app.post('/people', function(req,resp){
 	} else if(findUser(req.body.username) !== false){
 		
 			resp.send(400);
-		}else if(!req.body.username){}
-		else{
+		}else if(!req.body.username || !req.body.forename || !req.body.surname || !req.body.password || !req.body.retype){
+
+			resp.send("Please fill in all the fields");
+		}else if(req.body.password != req.body.retype){
+			
+			resp.send("Passwords must match");
+		}else{
 			
 			let user = {
 				username: req.body.username,
 				forename: req.body.forename,
 				surname: req.body.surname,	
+				adminStatus: false,
+				image: req.body.image
 			};
 
 			passwords.push(req.body.password);
-
+			steven.push(user);
 			users.push(user);
-			resp.send("Success")
+			resp.send(true);
 		}
 	})
 
 app.get("/people", function(req,resp){
-	resp.send(users);
+	resp.send(steven);
 
 })
 app.get("/people/:username", function(req,resp){
 	let index = findUser(req.params.username);
 	if(index !== false){
-		resp.send(users[index]);
+		resp.send(steven[index]);
 	}else{
 		resp.send("no user found");
 	}
@@ -86,6 +96,9 @@ app.post("/login",function(req,resp){
 	}else{
 		resp.send(true);
 		req.session.isLoggedin = true;
+		req.session.isAdmin= users[index].adminStatus;
+		req.session.username = users[index].username;
+		req.session.image = users[index].image;
 		req.session.save(function(err){});
 	}
 })
@@ -100,6 +113,7 @@ app.get("/comments", function(req,resp){
 })
 
 app.get("/events", function(req,resp){
+	
 	resp.send(events);
 })
 
@@ -107,6 +121,46 @@ app.get("/events", function(req,resp){
 
 app.get("/logged",function(req,resp){
 	resp.send(checkLoggedin(req));
+})
+
+app.get("/admin",function(req,resp){
+	resp.send(req.session.isAdmin);
+})
+
+app.post("/addEvent",function(req,resp){
+	
+	if(!req.body.ename || !req.body.image ||!req.body.tagline ||!req.body.date){
+		
+		resp.send(false);
+	}else{
+		let event= {
+			name: req.body.ename,
+			image: req.body.image,
+			tagline: req.body.tagline,
+			date: req.body.date
+		};
+		
+		events["events"].push(event);
+		resp.send(true);
+	}
+})
+
+app.post("/addComment",function(req,resp){
+
+	if(!req.body.eventn || !req.body.comment){
+		
+		resp.send(false);
+	}else{
+		let comment= {
+			username: req.session.username,
+			event: req.body.eventn,
+			comment: req.body.comment,
+			image: req.session.image
+		};
+		
+		comments["comments"].push(comment);
+		resp.send(true);
+	}
 })
 
 function checkLoggedin(req){

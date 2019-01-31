@@ -25,13 +25,26 @@
 		background: rgba(255,255,255,0.5);
 
 	}
+	.overflow{
+		width:100%;
+		height: 100%;
+		display: grid;
+		grid-template-rows: 60px calc(80vh - 60px);
+		overflow: auto;
+		background:  rgba(255,255,255,0.5);
+		
+	}
+
 	
+}
+
+
 
 </style>
 </head>
 <body>
 	<!-- NavBar-->
-	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark" >
 		<a class="navbar-brand" href="javascript:void(0);" onclick="showSection('#front')">
 			<img src="img/cuthslogo.jpg" alt="icon" style="width:40px;">
 			Cuths Running Club
@@ -39,18 +52,16 @@
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="collapse navbar-collapse" id = "collapsibleNavbar">
+		<div class="collapse navbar-collapse bg-dark" id = "collapsibleNavbar" >
 			<ul class="navbar-nav mr-auto">
 				
 				<li class="nav-item">
 					<a id="nav-about" class="nav-link" href="javascript:void(0);" onclick="showSection('#about')">About</a>
 				</li>
 				<li class="nav-item">
-					<a id="nav-events" class="nav-link" href="javascript:void(0);" onclick="showSection('#events');showComments();showEvents();">Events</a>
+					<a id="nav-events" class="nav-link" href="javascript:void(0);" onclick="showComments();showEvents();">Events</a>
 				</li>
-				<li class="nav-item">
-					<a id="nav-times" class="nav-link" href="javascript:void(0);"onclick="showSection('#times');showTimes();">Race Times</a>
-				</li>
+				
 			</ul>
 
 			<button id="btn-login" class="btn btn-success mr-sm-2" data-toggle="modal" data-target="#login">Login</button>
@@ -80,12 +91,12 @@
 				<div class="modal-body">
 					<form id="loginform" action="http://127.0.0.1:8090">
 						<div class="form-group">
-							<label for="username">Username:</label>
-							<input type="text" class="form-control" id="loginusername">
+
+							<input type="text" class="form-control" placeholder="Username" id="loginusername">
 						</div>
 						<div class="form-group">
-							<label for="pwd">Password:</label>
-							<input type="password" class="form-control" id="loginpwd">
+							
+							<input type="password" class="form-control" placeholder="Password" id="loginpwd">
 							
 						</div>
 						<div id="loginfailed" style="color: red"></div>
@@ -119,29 +130,33 @@
 				<!-- Modal body -->
 				<div class="modal-body">
 					<form id="registerform" action="http://127.0.0.1:8090">
-						<div id="registerblank" style="color: red"></div>
+						<div id="registerfail" style="color: red"></div>
 						<div class="form-group">
-							<label for="username">Username:</label>
-							<input type="text" class="form-control" id="registerusername">
+
+							<input type="text" class="form-control" placeholder="Username" id="registerusername">
 						</div>
 						<div class="form-group">
-							<label for="registerfirst">Forename:</label>
-							<input type="text" class="form-control" id="registerfirst">
+							
+							<input type="text" class="form-control" placeholder="Firstname" id="registerfirst">
 							
 						</div>
 						<div class="form-group">
-							<label for="registerlast">Surname:</label>
-							<input type="text" class="form-control" id="registerlast">
+							
+							<input type="text" class="form-control" placeholder="Surname" id="registerlast">
 							
 						</div>
 						<div class="form-group">
-							<label for="registerpwd">Password:</label>
-							<input type="password" class="form-control" id="registerpwd">
+
+							<input type="text" class="form-control" placeholder="Image URL(optional)" id="user-image">
+						</div>
+						<div class="form-group">
+
+							<input type="password" class="form-control" placeholder="Password" id="registerpwd">
 							
 						</div>
 						<div class="form-group">
-							<label for="registerpwd">Retype</label>
-							<input type="password" class="form-control" id="register-retype">
+							
+							<input type="password" class="form-control" placeholder="Retype Password" id="register-retype">
 							
 						</div>
 						
@@ -162,230 +177,386 @@
 		</div>
 	</div>
 
-	<section id="main">
-		<section id="front" class="content bg-picture">
-			<div class="jumbotron" style="text-align: center;" >
-				<h1>Welcome to Cuths Running Club(CRC)</h1> 
-				<h4>The home of all your running needs.</h4> 
-			</div>
-			
-			
-		</section>
-		<section id="about" class="content bg-picture">
-			<div class="jumbotron">
-				<h1>about</h1> 
-				<p>Bootstrap is the most popular HTML, CSS...</p> 
-			</div>
-		</section>
+	<!-- Modal to add Event-->
+	<div class="modal fade" id="add-event">
+		<div class="modal-dialog">
+			<div class="modal-content">
 
-		<section id="events" class="content">
-			
-			<div id="eventlist" class="col-sm-6 float-left">
-				<div class="event">
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">Add new Event:</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
 
-				</div>
-			</div>
-			<div class="col-sm-5 float-right">
-				<div id="commentlist">
-				</div>
-				<div class="extra">
-					<form action="http://127.0.0.1:8090">
+				<!-- Modal body -->
+				<div class="modal-body">
+					<form id="event-form" action="http://127.0.0.1:8090">
 						<div class="form-group">
-							<label for="event-select">Select list (select one):</label>
-							<select class="form-control" id="event-select">
+							<div class="form-group">
+								<h3> Add new event:</h3>
+								<input type="text" class="form-control" placeholder="Event name" id="event-name">
+							</div>
+							<div class="form-group">
+								
+								<input type="text" class="form-control" placeholder="Image URL" id="event-image">
+							</div>
+							<div class="form-group">
+								
+								<input type="text" class="form-control" placeholder="Event date" id="event-date">
+							</div>
 
-							</select>
-							<label for="comment">Comment:</label>
-							<textarea class="form-control" rows="5" id="comment"></textarea>
-							<button type="submit" class="btn btn-success">Add Comment</button>
+							
+							<textarea class="form-control" rows="5" placeholder="Event Description" id="event-desc"></textarea>
+							<div id="event-fail" style="color:red;"></div>
+							<button type="submit" class="btn btn-success">Add Event</button>
 						</div>
 					</form>
 				</div>
-			</div>
-			
-		</section>
 
-		<section id="times" class="content">
-			<div class="jumbotron">
-				<h1>times</h1> 
-				<p>Bootstrap is the most popular HTML, CSS...</p> 
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					
+				</div>
+
 			</div>
-		</section>
+		</div>
+	</div>
+
+	<!-- Modal to add Comment-->
+	<div class="modal fade" id="add-comment">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">Add Comment</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					<form id="comment-form"action="http://127.0.0.1:8090">
+						<div class="form-group">
+							<label for="comment-select">Event you want to comment about:</label>
+						</div>
+						<div class="form-group">
+							<select class="form-control" id="comment-select">
+
+							</select>
+						</div>
+						<div class="form-group">
+							<textarea class="form-control" rows="5" placeholder="Comment" id="comment"></textarea>
+						</div>
+						<div id="comment-fail" style="color:red;"></div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-success">Add Comment</button>
+						</div>
+
+				</form>
+			</div>
+
+			<!-- Modal footer -->
+			<div class="modal-footer">
+
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<section id="main">
+	<section id="front" class="content bg-picture">
+		<div class="jumbotron" style="text-align: center;" >
+			<h1>Welcome to Cuths Running Club(CRC)</h1> 
+			<h4>The home of all your running needs.</h4> 
+		</div>
 
 
 	</section>
+	<section id="about" class="content bg-picture">
+		<div class="jumbotron">
+			<h1>about</h1> 
+			<p>Bootstrap is the most popular HTML, CSS...</p> 
+		</div>
+	</section>
+
+	<section id="events" class="content bg-picture">
+		<div class="col-sm-6 float-left ">
+			<div class="overflow">
+				<div id="eventlist">
+				</div>
+			</div>
+			<div class="admin">
+				
+				<button id="btn-add-event" class="btn btn-success mr-sm-2 mt-3" data-toggle="modal" data-target="#add-event">Add Event</button>
+			</div>
+		</div>
+		<div class="col-sm-6 float-right">
+			<div class="overflow">
+				<div id="commentlist">
+				</div>
+			</div>
+
+			<div class="extra">
+				<button id="btn-add-comment" class="btn btn-success mr-sm-2 mt-3" data-toggle="modal" data-target="#add-comment">Add Comment</button>
+
+			</div>
+		</div>
+
+	</section>
+
+	
+
+
+</section>
 
 
 
 
-	<script>
+<script>
 
 
-		$("document").ready( function(){
-			showSection(false);
+	$("document").ready( function(){
+		showSection(false);
+		$(".content").hide();
+		$("#front").show();
+		$(".extra").hide();
+
+
+
+	});
+
+
+
+
+
+	function showSection(tag){
+
+		if(tag !== false){
 			$(".content").hide();
-			$("#front").show();
-			$(".extra").hide();
-			
-
-
-		});
-
-
-
-
-		
-		function showSection(tag){
-			if(tag !== false){
-				$(".content").hide();
-				$(tag).show();
-			}	
-			
-
-			$.get("/logged",
-
-				function(data){
-					
-					if(data){
-						$("#btn-register").hide();
-						$("#btn-login").hide();
-						$("#btn-logout").show();
-						$(".extra").show();
-					}else{
-						$("#btn-register").show();
-						$("#btn-login").show();
-						$("#btn-logout").hide();
-						$(".extra").hide();
-
-					};
-
-
-				});
-			return false;
-
-			
+			$(tag).show();
 		};
 
-		$("#btn-logout").on("click",logout);
 
-		function logout(){
-			$.get("/logout",
-
-
-				function (data){
-
-					showSection(false);
-				});
-
-
-			return false;
-		};
-
-		function loginhandler (){
-
-
-
-			$.post("/login",
-			{
-				username:$("#loginusername").val(),
-				password:$("#loginpwd").val(),
-				access_token:"concertina"
-			},	
-
-
-			function (data){
-				if(!data){
-					$('#loginfailed').html("Invalid username/password");
-					$('#loginform').each(function(){
-						this.reset();
-					});
-				}else{
-					showSection(false);
-					$('#failed').html("");
-					$("#btn-register").hide();
-					$("#btn-login").hide();
-					$("#btn-logout").show();
-					$('#login').modal("hide");
-					$('#loginform').each(function(){
-						this.reset();
-					});
-
-				}
-
-
-			});
-			return false;
-
-
-		};
-
-		$('#loginform').on('submit', loginhandler);
-
-		function registerhandler (){
-
-			$.post("/people",
-			{
-				forename:$("#registerfirst").val(),
-				surname:$("#registerlast").val(),
-				username:$("#registerusername").val(),
-				password:$("#registerpwd").val(),
-				access_token:"concertina"	
-			},
+		$.get("/logged",
 
 			function(data){
 
+				if(data){
+					$("#btn-register").hide();
+					$("#btn-login").hide();
+					$("#btn-logout").show();
+					$(".extra").show();
+				}else{
+					$("#btn-register").show();
+					$("#btn-login").show();
+					$("#btn-logout").hide();
+					$(".extra").hide();
+
+				};
+
+
+			});
+
+
+		$.get("/admin",
+
+			function(data){
+
+				if(data){
+					$(".admin").show();
+				}else{
+
+					$(".admin").hide();
+
+				};
+
+
+			});
+		return false;
+
+
+
+
+	};
+
+	$("#btn-logout").on("click",logout);
+
+	function logout(){
+		$.get("/logout",
+
+
+			function (data){
+
+				showSection(false);
+			});
+
+
+		return false;
+	};
+
+	function loginhandler (){
+
+
+
+		$.post("/login",
+		{
+			username:$("#loginusername").val(),
+			password:$("#loginpwd").val(),
+			access_token:"concertina"
+		},	
+
+
+		function (data){
+			if(!data){
+				$('#loginfailed').html("Invalid username/password");
+				$('#loginform').each(function(){
+					this.reset();
+				});
+			}else{
+				showSection(false);
+				$('#failed').html("");
+				$("#btn-register").hide();
+				$("#btn-login").hide();
+				$("#btn-logout").show();
+				$('#login').modal("hide");
+				$('#loginform').each(function(){
+					this.reset();
+				});
+
+			}
+
+
+		});
+		return false;
+
+
+	};
+
+	$('#loginform').on('submit', loginhandler);
+
+	function registerhandler (){
+		if($("#user-image").val() == ""){
+			let image = "https://vignette.wikia.nocookie.net/nightmarefactory/images/4/4a/Anonymous_User.png/revision/latest?cb=20180303193206";
+		}else{
+			let image = $("user-image").val();
+		}
+		$.post("/people",
+		{
+			forename:$("#registerfirst").val(),
+			surname:$("#registerlast").val(),
+			username:$("#registerusername").val(),
+			password:$("#registerpwd").val(),
+			retype:$("#register-retype").val(),
+			image:image,
+			access_token:"concertina"	
+		},
+
+		function(data){
+			if(data === true){
 				$("#register").modal("hide");
 				$('#registerform').each(function(){
 					this.reset();
 				});
+			}else{
+				
+				$("#registerfail").html(data);
+			}
 
+
+
+
+		});
+		return false;
+	};
+
+	$('#registerform').on('submit',registerhandler);
+
+
+
+
+	function showComments(){
+
+		$.get("/comments",
+
+			function(data){
+
+				var template = '{{#comments}}<div class="media border p-3 comment align-self-end"> <img src="{{image}}" alt="Cuths" class="mr-3 mt-3 rounded-circle" style="width:60px;"> <div class="media-body"> <h4> {{username}} <small><i>is commenting about {{event}}</i></small></h4> <p>{{comment}}</p> </div> </div>{{/comments}}';
+				var html = Mustache.to_html(template,data);
+				$("#commentlist").html(html);
+				showSection("#comments");
 
 
 			});
-			return false;
-		};
+		return false;
+	};
 
-		$('#registerform').on('submit',registerhandler);
+	function showEvents(){
 
+		$.get("/events",
 
+			function(data){
+				var template = '{{#events}}<option>{{name}}</option>{{/events}}';
+				var html = Mustache.to_html(template,data);
+				$("#comment-select").html(html);
+				template = '{{#events}}<div class="media border comment p-3 align-self-start"> <img src="{{image}}" alt="Event Image" class="mr-3 mt-3 rounded-circle" style="width:60px;"> <div class="media-body"> <h4> {{name}} <small><i> {{date}}</i></small></h4> <p>{{tagline}}</p> </div> </div>{{/events}}';
+				html = Mustache.to_html(template,data);
+				$("#eventlist").html(html);
+				showSection("#events")
+			});
+		return false;
+	};
 
+	function addEvent(){
+		$.post("/addEvent",
+		{
+			ename:$("#event-name").val(),
+			image:$("#event-image").val(),
+			tagline:$("#event-desc").val(),
+			date:$("#event-date").val()
+		},
+		function(data){
+			if(!data){
 
-		function showComments(){
-			
-			$.get("/comments",
+				$("#event-fail").html("Please fill in all the boxes");
+			}else{
+				$("#event-fail").html("");
+				showEvents();
+				$("#add-event").modal("hide");
+			}
+		});
+		return false;
+	};
+	$("#event-form").on("submit",addEvent);
 
-				function(data){
+	function addComment(){
+		$.post("/addComment",
+		{
+			eventn:$("#comment-select").val(),
+			comment:$("#comment").val()
 
-					var template = '{{#comments}}<div class="media border p-3 comment align-self-end"> <img src="img/cuthslogo.jpg" alt="Cuths" class="mr-3 mt-3 rounded-circle" style="width:60px;"> <div class="media-body"> <h4> {{username}} <small><i>is commenting about {{event}}</i></small></h4> <p>{{comment}}</p> </div> </div>{{/comments}}';
-					var html = Mustache.to_html(template,data);
-					$("#commentlist").html(html);
-					showSection("#comments");
+		},
+		function(data){
+			if(!data){
 
+				$("#comment-fail").html("Please fill in all the boxes");
+			}else{
+				$("#comment-fail").html("");
+				showComments();
+				showEvents();
+				$("#add-comment").modal("hide");
+			}
+		});
+		return false;
+	};
+	$("#comment-form").on("submit",addComment);
+</script>
 
-				});
-			return false;
-		};
-
-		function showEvents(){
-
-			$.get("/events",
-
-				function(data){
-					var template = '{{#events}}<option>{{name}}</option>{{/events}}';
-					var html = Mustache.to_html(template,data);
-					$("#event-select").html(html);
-					template = '{{#events}}<div class="media border p-3 comment align-self-end"> <img src="{{image}}" alt="Cuths" class="mr-3 mt-3 rounded-circle" style="width:60px;"> <div class="media-body"> <h4> {{name}} <small><i> {{date}}</i></small></h4> <p>{{tagline}}</p> </div> </div>{{/events}}';
-					html = Mustache.to_html(template,data);
-					$("#eventlist").html(html);
-					showSection("#events")
-				});
-			return false;
-		};
-
-
-	</script>
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 </body>
 </html>
