@@ -9,6 +9,7 @@
 	<script src="mustache.js"></script>   
 	<style>
 	body{
+		
 		height: 100%;
 		display: grid;
 		grid-template-rows: 60px calc(100vh - 60px);
@@ -22,7 +23,7 @@
 		align-items: center; 
 	}
 	.jumbotron {
-		background: rgba(255,255,255,0.5);
+		background: rgba(255,255,255,0.7);
 
 	}
 	.overflow{
@@ -31,8 +32,11 @@
 		display: grid;
 		grid-template-rows: 60px calc(80vh - 60px);
 		overflow: auto;
-		background:  rgba(255,255,255,0.5);
+		background:  rgba(255,255,255,0.7);
 		
+	}
+	.trans{
+		background:  rgba(255,255,255,0.7);
 	}
 
 	
@@ -64,8 +68,8 @@
 				
 			</ul>
 
-			<button id="btn-login" class="btn btn-success mr-sm-2" data-toggle="modal" data-target="#login">Login</button>
-			<button id="btn-register" class="btn btn-success mr-sm-2" data-toggle="modal" data-target="#register">Register</button>
+			<button id="btn-login" class="btn btn-success mr-sm-2 " data-toggle="modal" data-target="#login">Login</button>
+			<button id="btn-register" class="btn btn-success mr-sm-2 " data-toggle="modal" data-target="#register">Register</button>
 			<button id="btn-logout" class="btn btn-danger mr-sm-2" >Logout</button>
 
 
@@ -254,310 +258,344 @@
 							<button type="submit" class="btn btn-success">Add Comment</button>
 						</div>
 
-				</form>
+					</form>
+				</div>
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+				</div>
+
 			</div>
-
-			<!-- Modal footer -->
-			<div class="modal-footer">
-
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-
-			</div>
-
 		</div>
 	</div>
-</div>
 
-<section id="main">
-	<section id="front" class="content bg-picture">
-		<div class="jumbotron" style="text-align: center;" >
-			<h1>Welcome to Cuths Running Club(CRC)</h1> 
-			<h4>The home of all your running needs.</h4> 
-		</div>
-
-
-	</section>
-	<section id="about" class="content bg-picture">
-		<div class="jumbotron">
-			<h1>about</h1> 
-			<p>Bootstrap is the most popular HTML, CSS...</p> 
-		</div>
-	</section>
-
-	<section id="events" class="content bg-picture">
-		<div class="col-sm-6 float-left ">
-			<div class="overflow">
-				<div id="eventlist">
-				</div>
+	<section id="main">
+		<section id="front" class="content bg-picture">
+			<div class="jumbotron" style="text-align: center;" >
+				<h1>Welcome to Cuths Running Club(CRC)</h1> 
+				<h4>The home of all your running needs.</h4> 
 			</div>
-			<div class="admin">
+
+
+		</section>
+		<section id="about" class="content bg-picture">
+			<div class="jumbotron" style="text-align: center;">
+				<h1>About Us</h1> 
 				
-				<button id="btn-add-event" class="btn btn-success mr-sm-2 mt-3" data-toggle="modal" data-target="#add-event">Add Event</button>
+				<p>
+					Running properly isn't for everyone however, below you'll find some of the other things we do like casual runs and more importantly, our <strong> AMAZING</strong> socials!!!
+				</p>
 			</div>
-		</div>
-		<div class="col-sm-6 float-right">
-			<div class="overflow">
-				<div id="commentlist">
+			<div class="card-deck p-3">
+				<div class="card trans">
+					<img class="card-img-top mx-auto mt-3 rounded-circle" src="img/casual.jpg" alt="Card image" style="width:60px; height: 60px;">
+					<div class="card-body text-center">
+						<h4 class="card-text">Casual Run</h4>
+						<p>Every Tuesday we run a casual run, here we take a nice slow route around Durham enjoying the scenic views whilst not completely burning ourselves out </p>
+					</div>
+				</div>
+				<div class="card trans">
+					<img class="card-img-top mx-auto mt-3 rounded-circle" src="img/social.jpg" alt="Card image" style="width:60px; height: 60px;">
+					<div class="card-body text-center">
+						<h4 class="card-text">Socials!!</h4>
+						<p>Our themed socials can be attended by anyone(even if you don't run!)</p>
+						<p>Whether it's Bailey vs Parsons, Vikings vs Monks or 90s Fitness Video themed, you can guarantee that the costumes will be coming out and the drinks will be flowing! head over to our <a href="javascript:void(0);" onclick="showComments();showEvents();">Events</a> page to see what's going on!</p>
+					</div>
+				</div>
+				<div class="card trans">
+					<img class="card-img-top mx-auto mt-3 rounded-circle" src="img/track.jpg" alt="Card image" style="width:60px; height: 60px;">
+					<div class="card-body text-center">
+						<h4 class="card-text">Park Run</h4>
+						<p>Every Saturday at 9am we have a Park Run, these are free to attend and all you need is an account and to print off the barcodes and you're ready to run 5k and get yourself a new PB!</p>
+					</div>
+				</div>
+				<div class="card trans">
+					<img class="card-img-top mx-auto mt-3 rounded-circle" src="img/marathon.jpg" alt="Card image" style="width:60px; height: 60px;">
+					<div class="card-body text-center">
+						<h4 class="card-text">Half Marathon Training</h4>
+						<p>Fancy doing a half marathon, we have training sessions where we condition you to make it possible to enter and run your own half marathon! </p>
+					</div>
+				</div> 
+			</div>
+
+		</section>
+
+		<section id="events" class="content bg-picture">
+			<div class="col-sm-6 float-left ">
+				<div class="overflow">
+					<div id="eventlist">
+					</div>
+				</div>
+				<div class="admin">
+
+					<button id="btn-add-event" class="btn btn-success mr-sm-2 mt-3" data-toggle="modal" data-target="#add-event">Add Event</button>
+				</div>
+			</div>
+			<div class="col-sm-6 float-right">
+				<div class="overflow">
+					<div id="commentlist">
+					</div>
+				</div>
+
+				<div class="extra">
+					<button id="btn-add-comment" class="btn btn-success mr-sm-2 mt-3" data-toggle="modal" data-target="#add-comment">Add Comment</button>
+
 				</div>
 			</div>
 
-			<div class="extra">
-				<button id="btn-add-comment" class="btn btn-success mr-sm-2 mt-3" data-toggle="modal" data-target="#add-comment">Add Comment</button>
+		</section>
 
-			</div>
-		</div>
+
+
 
 	</section>
 
-	
-
-
-</section>
 
 
 
-
-<script>
-
-
-	$("document").ready( function(){
-		showSection(false);
-		$(".content").hide();
-		$("#front").show();
-		$(".extra").hide();
+	<script>
 
 
-
-	});
-
-
-
-
-
-	function showSection(tag){
-
-		if(tag !== false){
+		$("document").ready( function(){
+			showSection(false);
 			$(".content").hide();
-			$(tag).show();
+			$("#front").show();
+			$(".extra").hide();
+
+
+
+		});
+
+
+
+
+
+		function showSection(tag){
+
+			if(tag !== false){
+				$(".content").hide();
+				$(tag).show();
+			};
+
+
+			$.get("/logged",
+
+				function(data){
+
+					if(data){
+						$("#btn-register").hide();
+						$("#btn-login").hide();
+						$("#btn-logout").show();
+						$(".extra").show();
+					}else{
+						$("#btn-register").show();
+						$("#btn-login").show();
+						$("#btn-logout").hide();
+						$(".extra").hide();
+
+					};
+
+
+				});
+
+
+			$.get("/admin",
+
+				function(data){
+
+					if(data){
+						$(".admin").show();
+					}else{
+
+						$(".admin").hide();
+
+					};
+
+
+				});
+			return false;
+
+
+
+
 		};
 
+		$("#btn-logout").on("click",logout);
 
-		$.get("/logged",
-
-			function(data){
-
-				if(data){
-					$("#btn-register").hide();
-					$("#btn-login").hide();
-					$("#btn-logout").show();
-					$(".extra").show();
-				}else{
-					$("#btn-register").show();
-					$("#btn-login").show();
-					$("#btn-logout").hide();
-					$(".extra").hide();
-
-				};
+		function logout(){
+			$.get("/logout",
 
 
-			});
+				function (data){
+
+					showSection(false);
+				});
 
 
-		$.get("/admin",
+			return false;
+		};
 
-			function(data){
-
-				if(data){
-					$(".admin").show();
-				}else{
-
-					$(".admin").hide();
-
-				};
-
-
-			});
-		return false;
+		function loginhandler (){
 
 
 
-
-	};
-
-	$("#btn-logout").on("click",logout);
-
-	function logout(){
-		$.get("/logout",
+			$.post("/login",
+			{
+				username:$("#loginusername").val(),
+				password:$("#loginpwd").val(),
+				access_token:"concertina"
+			},	
 
 
 			function (data){
+				if(!data){
+					$('#loginfailed').html("Invalid username/password");
+					$('#loginform').each(function(){
+						this.reset();
+					});
+				}else{
+					showSection(false);
+					$('#failed').html("");
+					$("#btn-register").hide();
+					$("#btn-login").hide();
+					$("#btn-logout").show();
+					$('#login').modal("hide");
+					$('#loginform').each(function(){
+						this.reset();
+					});
 
-				showSection(false);
+				}
+
+
 			});
+			return false;
 
 
-		return false;
-	};
+		};
 
-	function loginhandler (){
+		$('#loginform').on('submit', loginhandler);
 
-
-
-		$.post("/login",
-		{
-			username:$("#loginusername").val(),
-			password:$("#loginpwd").val(),
-			access_token:"concertina"
-		},	
-
-
-		function (data){
-			if(!data){
-				$('#loginfailed').html("Invalid username/password");
-				$('#loginform').each(function(){
-					this.reset();
-				});
-			}else{
-				showSection(false);
-				$('#failed').html("");
-				$("#btn-register").hide();
-				$("#btn-login").hide();
-				$("#btn-logout").show();
-				$('#login').modal("hide");
-				$('#loginform').each(function(){
-					this.reset();
-				});
-
-			}
-
-
-		});
-		return false;
-
-
-	};
-
-	$('#loginform').on('submit', loginhandler);
-
-	function registerhandler (){
-		if($("#user-image").val() == ""){
-			let image = "https://vignette.wikia.nocookie.net/nightmarefactory/images/4/4a/Anonymous_User.png/revision/latest?cb=20180303193206";
-		}else{
-			let image = $("user-image").val();
-		}
-		$.post("/people",
-		{
-			forename:$("#registerfirst").val(),
-			surname:$("#registerlast").val(),
-			username:$("#registerusername").val(),
-			password:$("#registerpwd").val(),
-			retype:$("#register-retype").val(),
-			image:image,
-			access_token:"concertina"	
-		},
-
-		function(data){
-			if(data === true){
-				$("#register").modal("hide");
-				$('#registerform').each(function(){
-					this.reset();
-				});
-			}else{
-				
-				$("#registerfail").html(data);
-			}
+		function registerhandler (){
 
 
 
-
-		});
-		return false;
-	};
-
-	$('#registerform').on('submit',registerhandler);
-
-
-
-
-	function showComments(){
-
-		$.get("/comments",
+			$.post("/people",
+			{
+				forename:$("#registerfirst").val(),
+				surname:$("#registerlast").val(),
+				username:$("#registerusername").val(),
+				password:$("#registerpwd").val(),
+				retype:$("#register-retype").val(),
+				image:$("#user-image").val(),
+				access_token:"concertina"	
+			},
 
 			function(data){
+				console.log(data);
+				if(data === true){
+					$("#register").modal("hide");
+					$('#registerform').each(function(){
+						this.reset();
+					});
+				}else{
 
-				var template = '{{#comments}}<div class="media border p-3 comment align-self-end"> <img src="{{image}}" alt="Cuths" class="mr-3 mt-3 rounded-circle" style="width:60px;"> <div class="media-body"> <h4> {{username}} <small><i>is commenting about {{event}}</i></small></h4> <p>{{comment}}</p> </div> </div>{{/comments}}';
-				var html = Mustache.to_html(template,data);
-				$("#commentlist").html(html);
-				showSection("#comments");
+					$("#registerfail").html(data);
+				}
+
+
 
 
 			});
-		return false;
-	};
+			return false;
+		};
 
-	function showEvents(){
+		$('#registerform').on('submit',registerhandler);
 
-		$.get("/events",
 
+
+
+		function showComments(){
+
+			$.get("/comments",
+
+				function(data){
+
+					var template = '{{#comments}}<div class="media border p-3 comment align-self-end"> <img src="{{image}}" alt="Cuths" class="mr-3 mt-3 rounded-circle" style="width:60px;"> <div class="media-body"> <h4> {{username}} <small><i>is commenting about {{event}}</i></small></h4> <p>{{comment}}</p> </div> </div>{{/comments}}';
+					var html = Mustache.to_html(template,data);
+					$("#commentlist").html(html);
+					showSection("#comments");
+
+
+				});
+			return false;
+		};
+
+		function showEvents(){
+
+			$.get("/events",
+
+				function(data){
+					var template = '{{#events}}<option>{{name}}</option>{{/events}}';
+					var html = Mustache.to_html(template,data);
+					$("#comment-select").html(html);
+					template = '{{#events}}<div class="media border comment p-3 align-self-start"> <img src="{{image}}" alt="Event Image" class="mr-3 mt-3 rounded-circle" style="width:60px;"> <div class="media-body"> <h4> {{name}} <small><i> {{date}}</i></small></h4> <p>{{tagline}}</p> </div> </div>{{/events}}';
+					html = Mustache.to_html(template,data);
+					$("#eventlist").html(html);
+					showSection("#events")
+				});
+			return false;
+		};
+
+		function addEvent(){
+			$.post("/addEvent",
+			{
+				ename:$("#event-name").val(),
+				image:$("#event-image").val(),
+				tagline:$("#event-desc").val(),
+				date:$("#event-date").val()
+			},
 			function(data){
-				var template = '{{#events}}<option>{{name}}</option>{{/events}}';
-				var html = Mustache.to_html(template,data);
-				$("#comment-select").html(html);
-				template = '{{#events}}<div class="media border comment p-3 align-self-start"> <img src="{{image}}" alt="Event Image" class="mr-3 mt-3 rounded-circle" style="width:60px;"> <div class="media-body"> <h4> {{name}} <small><i> {{date}}</i></small></h4> <p>{{tagline}}</p> </div> </div>{{/events}}';
-				html = Mustache.to_html(template,data);
-				$("#eventlist").html(html);
-				showSection("#events")
+				if(!data){
+
+					$("#event-fail").html("Please fill in all the boxes");
+				}else{
+					$("#event-fail").html("");
+					showEvents();
+					$("#add-event").modal("hide");
+				}
 			});
-		return false;
-	};
+			return false;
+		};
+		$("#event-form").on("submit",addEvent);
 
-	function addEvent(){
-		$.post("/addEvent",
-		{
-			ename:$("#event-name").val(),
-			image:$("#event-image").val(),
-			tagline:$("#event-desc").val(),
-			date:$("#event-date").val()
-		},
-		function(data){
-			if(!data){
+		function addComment(){
+			$.post("/addComment",
+			{
+				eventn:$("#comment-select").val(),
+				comment:$("#comment").val()
 
-				$("#event-fail").html("Please fill in all the boxes");
-			}else{
-				$("#event-fail").html("");
-				showEvents();
-				$("#add-event").modal("hide");
-			}
-		});
-		return false;
-	};
-	$("#event-form").on("submit",addEvent);
+			},
+			function(data){
+				if(!data){
 
-	function addComment(){
-		$.post("/addComment",
-		{
-			eventn:$("#comment-select").val(),
-			comment:$("#comment").val()
+					$("#comment-fail").html("Please fill in all the boxes");
+				}else{
+					$("#comment-fail").html("");
+					$("#add-comment").modal("hide");
+					showComments();
+					showEvents();
 
-		},
-		function(data){
-			if(!data){
+				}
+			});
+			return false;
+		};
+		$("#comment-form").on("submit",addComment);
+	</script>
 
-				$("#comment-fail").html("Please fill in all the boxes");
-			}else{
-				$("#comment-fail").html("");
-				$("#add-comment").modal("hide");
-				showComments();
-				showEvents();
-				
-			}
-		});
-		return false;
-	};
-	$("#comment-form").on("submit",addComment);
-</script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 </body>
 </html>

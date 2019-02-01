@@ -51,29 +51,34 @@ app.post('/people', function(req,resp){
 		resp.send(403);
 	} else if(findUser(req.body.username) !== false){
 		
-			resp.send(400);
-		}else if(!req.body.username || !req.body.forename || !req.body.surname || !req.body.password || !req.body.retype){
+		resp.send(400);
+	}else if(!req.body.username || !req.body.forename || !req.body.surname || !req.body.password || !req.body.retype){
 
-			resp.send("Please fill in all the fields");
-		}else if(req.body.password != req.body.retype){
-			
-			resp.send("Passwords must match");
-		}else{
-			
-			let user = {
-				username: req.body.username,
-				forename: req.body.forename,
-				surname: req.body.surname,	
-				adminStatus: false,
-				image: req.body.image
-			};
+		resp.send("Please fill in all the fields");
+	}else if(req.body.password != req.body.retype){
 
-			passwords.push(req.body.password);
-			steven.push(user);
-			users.push(user);
-			resp.send(true);
-		}
-	})
+		resp.send("Passwords must match");
+	}else{
+
+		let image = req.body.image;
+		if(!image){
+			image = "https://vignette.wikia.nocookie.net/nightmarefactory/images/4/4a/Anonymous_User.png/revision/latest?cb=20180303193206";
+		};
+
+		let user = {
+			username: req.body.username,
+			forename: req.body.forename,
+			surname: req.body.surname,	
+			adminStatus: false,
+			image: image
+		};
+
+		passwords.push(req.body.password);
+		steven.push(user);
+		users.push(user);
+		resp.send(true);
+	}
+})
 
 app.get("/people", function(req,resp){
 	resp.send(steven);
